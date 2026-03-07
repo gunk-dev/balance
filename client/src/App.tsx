@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Menu, Bell, Plus, Activity, Utensils } from "lucide-react";
 import { useAppStore } from "./store";
 import { MetricSlider } from "./components/MetricSlider";
@@ -9,6 +9,14 @@ export function App() {
     useAppStore();
   const [activeTab, setActiveTab] = useState<"metrics" | "food">("metrics");
   const [showAdd, setShowAdd] = useState(false);
+  const [backendStatus, setBackendStatus] = useState<string>("checking");
+
+  useEffect(() => {
+    fetch("/api/health")
+      .then((res) => (res.ok ? res.json() : Promise.reject()))
+      .then((data: { status: string }) => setBackendStatus(data.status))
+      .catch(() => setBackendStatus("static"));
+  }, []);
 
   const [newMetric, setNewMetric] = useState({
     name: "",
@@ -32,9 +40,18 @@ export function App() {
         {/* Header */}
         <header className="flex justify-between items-center pt-12 px-8 pb-6 shrink-0">
           <Menu className="w-6 h-6 text-forest" strokeWidth={1.5} />
-          <h1 className="text-sm tracking-[0.2em] font-medium uppercase text-forest">
-            Balance
-          </h1>
+          <div className="flex flex-col items-center">
+            <h1 className="text-sm tracking-[0.2em] font-medium uppercase text-forest">
+              Balance
+            </h1>
+            <span className="text-[9px] tracking-[0.05em] uppercase text-mint">
+              {backendStatus === "checking"
+                ? "…"
+                : backendStatus === "ok"
+                  ? "connected"
+                  : "static"}
+            </span>
+          </div>
           <Bell className="w-6 h-6 text-forest" strokeWidth={1.5} />
         </header>
 
