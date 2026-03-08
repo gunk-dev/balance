@@ -8,7 +8,10 @@ interface Props {
 
 export function MetricSlider({ metric, currentValue, onLog }: Props) {
   return (
-    <div className="bg-cream rounded-[2rem] p-5 shadow-[0_8px_30px_rgba(0,0,0,0.04)] flex flex-col gap-3">
+    <div
+      data-testid={`metric-${metric.id}`}
+      className="bg-cream rounded-[2rem] p-5 shadow-[0_8px_30px_rgba(0,0,0,0.04)] flex flex-col gap-3"
+    >
       <div className="flex justify-between items-end">
         <h2 className="text-[11px] tracking-[0.15em] uppercase text-forest font-medium">
           {metric.name}
@@ -22,6 +25,7 @@ export function MetricSlider({ metric, currentValue, onLog }: Props) {
         {Array.from({ length: metric.steps }).map((_, i) => (
           <div
             key={i}
+            data-testid={`step-${i}`}
             className="relative w-10 h-10 flex justify-center items-center cursor-pointer z-[1]"
             onClick={() => onLog(i)}
           >

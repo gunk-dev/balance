@@ -39,7 +39,10 @@ export function App() {
         {/* Header */}
         <header className="flex justify-between items-center pt-12 px-8 pb-6 shrink-0">
           <div className="w-6" />
-          <h1 className="text-sm tracking-[0.2em] font-medium uppercase text-forest">
+          <h1
+            data-testid="app-header"
+            className="text-sm tracking-[0.2em] font-medium uppercase text-forest"
+          >
             Balance
           </h1>
           <Bell className="w-6 h-6 text-forest" strokeWidth={1.5} />
