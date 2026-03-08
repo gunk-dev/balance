@@ -1,5 +1,16 @@
 # BALANCE — Project Conventions
 
+## Principles
+
+- **Usability must be delightful and quick.** A tracking app that doesn't get used is useless.
+- Balance is a **PWA health tracker** (Android-only for now).
+- **Interaction model**: tap to record (immediate, no save button), skip to not record.
+
+## Data
+
+- Data model is in `client/src/types.ts`.
+- Persistence is **IndexedDB** via the `idb` library (`client/src/store.ts`).
+
 ## Architecture
 
 - **Monorepo** using npm workspaces: `client/` and `server/`.
