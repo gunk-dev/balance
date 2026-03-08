@@ -1,43 +1,33 @@
-# BALANCE
+# Balance
 
-A web-based tracking app.
+A personal health and wellness tracker that's fast enough to actually use every day.
 
-## Project Structure
+<p align="center">
+  <img src="docs/screenshot.png" alt="Balance" width="300" />
+</p>
 
-```
-balance/
-├── client/          # React + TypeScript frontend (Vite)
-│   └── src/
-│       ├── App.tsx
-│       └── main.tsx
-├── server/          # Fastify + TypeScript backend
-│   └── src/
-│       └── index.ts
-├── package.json     # Root workspace config
-└── CLAUDE.md        # AI assistant conventions
-```
+Balance probes you throughout the day on health and wellness metrics. Tap a value to record, skip what feels baseline. The whole interaction takes 5 seconds.
 
-## Getting Started
+## Features
+
+- 12 default metrics (mood, stress, energy, anxiety, fatigue, tension, headache, brain fog, sleepiness, water, alcohol, caffeine)
+- Tap-to-record interaction (no save button)
+- Offline-first with IndexedDB persistence
+- Installable PWA (Android)
+- Customizable metrics
+
+## Try it
+
+[**balance.patflynn.github.io**](https://patflynn.github.io/balance/)
+
+## Development
 
 ```bash
 npm install
 npm run dev
+npm run test:e2e
 ```
-
-This starts both the Vite dev server (http://localhost:5173) and the Fastify API server (http://localhost:3001) concurrently. The Vite dev server proxies `/api` requests to the backend.
-
-## Scripts
-
-| Command               | Description                         |
-| --------------------- | ----------------------------------- |
-| `npm run dev`         | Start client and server in dev mode |
-| `npm run build`       | Build both client and server        |
-| `npm run lint`        | Run ESLint                          |
-| `npm run format`      | Format code with Prettier           |
-| `npm run format:check`| Check formatting without writing    |
 
 ## Tech Stack
 
-- **Frontend:** React 18, TypeScript, Vite
-- **Backend:** Fastify 5, TypeScript
-- **Tooling:** ESLint, Prettier, npm workspaces
+React, TypeScript, Vite, Tailwind CSS, IndexedDB, Playwright
