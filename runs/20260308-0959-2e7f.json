@@ -1,0 +1,16 @@
+{
+  "id": "20260308-0959-2e7f",
+  "prompt": "Rename the app from Measure to BALANCE throughout the codebase per issue #11. This includes: package.json name field, README.md title and references, CLAUDE.md references, HTML page title in client/index.html, App.tsx header/branding text, and any other references to 'Measure' in the codebase. Use 'BALANCE' (all caps) for branding/display and 'balance' (lowercase) for package names and technical identifiers.",
+  "issue": "11",
+  "branch": "agent/20260308-0959-2e7f",
+  "worktree": "/tmp/klaus-sessions/measure/20260308-0959-2e7f",
+  "tmux_pane": "%59",
+  "budget": "5.00",
+  "log_file": "/home/patrick/.klaus/sessions/session-20260308-0946-3f9e/logs/20260308-0959-2e7f.jsonl",
+  "created_at": "2026-03-08T09:59:29-04:00",
+  "cost_usd": 0.8141802999999999,
+  "duration_ms": 151123,
+  "pr_url": "https://github.com/patflynn/measure/pull/12",
+  "target_repo": "measure",
+  "clone_dir": "/home/patrick/hack/measure"
+}
