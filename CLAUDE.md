@@ -1,5 +1,11 @@
 # BALANCE — Project Conventions
 
+## Product context
+
+Balance is the **check-ins / tracking** surface of a three-app wellness toolset driven by an AI coach. The siblings are **flux** (workouts, `gunk-dev/flux`, Capacitor + Preact) and **vibe** (meditation, native Android, separate repo).
+
+The coach generates programs, reviews progress, adapts to mood / sickness / stress signals from these check-ins, and schedules reminders. Balance is one of its expressions — the Google Sheets sync layer (`client/src/sync/google-sheets.ts`) is the current substrate for shared state across the three surfaces. Design and architecture decisions should be evaluated against the coaching relationship, not against balance as a standalone tracker.
+
 ## Principles
 
 - **Usability must be delightful and quick.** A tracking app that doesn't get used is useless.
