@@ -1,0 +1,17 @@
+{
+  "id": "20260519-0846-4be5b4e6",
+  "prompt": "Add a short **Product context** section near the top of `CLAUDE.md` (above the existing `## Principles` section, immediately after the `# BALANCE — Project Conventions` title). This documents the product framing in the repo so future Claude sessions and contributors pick it up automatically.\n\n**Why now:** the user clarified that balance is not a standalone health tracker — it's one of three touchpoints (flux/vibe/balance) into a single AI wellness coach. That framing should be visible in CLAUDE.md so future decisions about balance (scope, sync strategy, what gets surfaced) get made with the coach in mind, not against balance as an isolated tracking app.\n\n**Add this section verbatim** (adjust wording lightly if it improves clarity, but keep it tight — five-ish lines):\n\n```md\n## Product context\n\nBalance is the **check-ins / tracking** surface of a three-app wellness toolset driven by an AI coach. The siblings are **flux** (workouts, `gunk-dev/flux`, Capacitor + Preact) and **vibe** (meditation, native Android, separate repo).\n\nThe coach generates programs, reviews progress, adapts to mood / sickness / stress signals from these check-ins, and schedules reminders. Balance is one of its expressions — the Google Sheets sync layer (`client/src/sync/google-sheets.ts`) is the current substrate for shared state across the three surfaces. Design and architecture decisions should be evaluated against the coaching relationship, not against balance as a standalone tracker.\n```\n\n**Do not** modify any other section of CLAUDE.md. The existing `## Principles` line that says \"Balance is a PWA health tracker (Android-only for now)\" is technically accurate at the implementation level — leave it. The new section adds product framing one level up.\n\n**Do not** introduce wording about how the coach is implemented beyond noting the Sheets sync is the current cross-app substrate — that's the only concrete integration point that already exists, so it's worth mentioning.\n\n**PR title:** \"docs: document product context — balance as tracking surface of wellness suite\"\n\n**PR body:** one line — \"Adds product framing to CLAUDE.md so future contributors and Claude sessions understand balance's role in the broader AI wellness coach product.\"\n\nThis is a tiny doc-only change; should be a one-commit PR.\n\n**Out of scope:** any architectural changes; any wording about coach implementation details beyond the existing Sheets sync; editing README.md or any other doc files.",
+  "issue": null,
+  "branch": "agent/20260519-0846-4be5b4e6",
+  "worktree": "/tmp/klaus-sessions/balance/20260519-0846-4be5b4e6",
+  "tmux_pane": "%63",
+  "budget": "5.00",
+  "log_file": "/home/patrick/.klaus/sessions/session-20260518-1703-942d2578/logs/20260519-0846-4be5b4e6.jsonl",
+  "created_at": "2026-05-19T08:46:48-04:00",
+  "cost_usd": 0.28099224999999994,
+  "duration_ms": 43802,
+  "pr_url": "https://github.com/gunk-dev/balance/pull/26",
+  "target_repo": "balance",
+  "clone_dir": "/home/patrick/hack/balance",
+  "session_name": "20260519-0846-4be5b4e6"
+}
