@@ -1,7 +1,7 @@
 # Repository context
 
 ## Purpose
-Balance is a personal health and wellness tracking PWA. The user is probed throughout the day for metrics (mood, stress, energy, etc.); tapping a value records it, skipping leaves it unrecorded. It is the check-ins / tracking surface of a three-app wellness toolset (siblings: `flux` workouts, `vibe` meditation) driven by an AI coach (see `CLAUDE.md`). Currently targets Android via PWA install (`README.md`, `client/vite.config.ts`).
+Balance is a personal health and wellness tracking PWA. The user is probed throughout the day for metrics (mood, stress, energy, etc.); tapping a value records it, skipping leaves it unrecorded. It is the check-ins / tracking surface of a three-app wellness toolset (siblings: `gunk-dev/flux` workouts, `gunk-dev/vibe` meditation) driven by an AI coach (see `CLAUDE.md`). Currently targets Android via PWA install (`README.md`, `client/vite.config.ts`).
 
 ## Tech stack
 - **TypeScript** (strict mode per `CLAUDE.md`), Node 22 (`flake.nix`, `.github/workflows/ci.yml`).
