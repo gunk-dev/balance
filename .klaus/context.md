@@ -1,10 +1,10 @@
 # Repository context
 
 ## Purpose
-Balance is a personal health and wellness tracking PWA. The user is probed throughout the day for metrics (mood, stress, energy, etc.); tapping a value records it, skipping leaves it unrecorded. It is the check-ins / tracking surface of a three-app wellness toolset (siblings: `gunk-dev/flux` workouts, `gunk-dev/vibe` meditation) driven by an AI coach (see `CLAUDE.md`). Currently targets Android via PWA install (`README.md`, `client/vite.config.ts`).
+Balance is a personal health and wellness tracking PWA. The user is probed throughout the day for metrics (mood, stress, energy, etc.); tapping a value records it, skipping leaves it unrecorded. It is the check-ins / tracking surface of a three-app wellness toolset (siblings: `gunk-dev/flux` workouts, `gunk-dev/vibe` meditation) driven by an AI coach (see `AGENTS.md`). Currently targets Android via PWA install (`README.md`, `client/vite.config.ts`).
 
 ## Tech stack
-- **TypeScript** (strict mode per `CLAUDE.md`), Node 22 (`flake.nix`, `.github/workflows/ci.yml`).
+- **TypeScript** (strict mode per `AGENTS.md`), Node 22 (`flake.nix`, `.github/workflows/ci.yml`).
 - **Client:** React 18 + Vite 5 (`client/package.json`), Tailwind CSS v4 via `@tailwindcss/vite`, `lucide-react` for icons, `idb` for IndexedDB, `vite-plugin-pwa` for service worker/manifest.
 - **Server:** Fastify 5 + `@fastify/static` (`server/package.json`), run with `tsx` in dev.
 - **Testing:** Playwright e2e (`@playwright/test`, `client/e2e/`, `client/playwright.config.ts`).
@@ -41,15 +41,15 @@ Prerequisites: Node 22 (or `nix develop` for the flake dev shell). Run from repo
 - Nix: `nix develop` enters the dev shell; `nix build` builds the `balance` package; `nix build .#oci-image` builds a layered Docker image (`flake.nix`).
 
 ## Conventions
-- **TypeScript strict mode** everywhere; **named exports preferred** over default exports (`CLAUDE.md`, see `App.tsx` exporting `function App`).
-- **Prettier:** double quotes, semicolons, trailing commas (`.prettierrc`, `CLAUDE.md`).
-- **Styling:** Tailwind v4 utilities preferred over custom CSS. Custom theme colors (`sage`, `cream`, `sand`, `forest`, `mint`) are declared in `client/src/index.css` via `@theme` (per `CLAUDE.md`).
+- **TypeScript strict mode** everywhere; **named exports preferred** over default exports (`AGENTS.md`, see `App.tsx` exporting `function App`).
+- **Prettier:** double quotes, semicolons, trailing commas (`.prettierrc`, `AGENTS.md`).
+- **Styling:** Tailwind v4 utilities preferred over custom CSS. Custom theme colors (`sage`, `cream`, `sand`, `forest`, `mint`) are declared in `client/src/index.css` via `@theme` (per `AGENTS.md`).
 - **React:** function components with hooks only.
 - **Persistence:** IndexedDB via `idb`; all access goes through `client/src/store.ts` (DB name `balance`, version `1`).
 - **Data model:** defined in `client/src/types.ts` (`Metric`, `LogEntry`, deferred `FoodLogEntry`).
-- **Interaction:** tap-to-record, no save button; skip means don't record (`CLAUDE.md`, `README.md`).
-- **Git:** never commit to `main`; use PR branches (`CLAUDE.md`).
-- **API surface:** server routes go under `/api/` (`CLAUDE.md`, see `/api/health` in `server/src/index.ts`).
+- **Interaction:** tap-to-record, no save button; skip means don't record (`AGENTS.md`, `README.md`).
+- **Git:** never commit to `main`; use PR branches (`AGENTS.md`).
+- **API surface:** server routes go under `/api/` (`AGENTS.md`, see `/api/health` in `server/src/index.ts`).
 
 ## Gotchas
 - `client/vite.config.ts` sets `base: "/balance/"` only when `command === "build" && process.env.GITHUB_ACTIONS` — local builds and the server-served build use `/`.

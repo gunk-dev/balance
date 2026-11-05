@@ -172,7 +172,7 @@ balance/
 - Migrate from localStorage to IndexedDB
 - Update data model (add schedule, order, enabled, synced to metrics/entries)
 - Remove food tab from UI (keep types for future)
-- Update CLAUDE.md with new conventions and UX principles (delightful, quick)
+- Update AGENTS.md with new conventions and UX principles (delightful, quick)
 - Add "usability must be delightful and quick" as a top-level project principle
 
 ### Phase 2: PWA + Notifications
