@@ -22,7 +22,7 @@
           pname = "balance";
           version = "0.1.0";
           src = ./.;
-          npmDepsHash = "sha256-xBXUd1o15mralA3fLXyjxLmC1JiBim9zSnQYDSXWW0k=";
+          npmDepsHash = "sha256-X0z0MHFjkFqA/g+hprfd9JojAn4rv+DQl3hGwJH3eoo=";
 
           buildPhase = ''
             runHook preBuild
