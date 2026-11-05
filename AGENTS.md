@@ -1,4 +1,4 @@
-# BALANCE — Project Conventions
+# Working in this repository
 
 ## Product context
 
