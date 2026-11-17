@@ -28,6 +28,20 @@ npm run dev
 npm run test:e2e
 ```
 
+## Checks
+
+Every CI test is also an offline Nix flake check on x86_64 Linux:
+
+```bash
+nix build .#checks.x86_64-linux.e2e
+```
+
+- `build` — production build of client and server
+- `lint` — ESLint
+- `e2e` — Playwright tests in headless Chromium
+- `nixfmt` — Nix formatting
+- `zizmor` — GitHub Actions workflow audit
+
 ## Tech Stack
 
 React, TypeScript, Vite, Tailwind CSS, IndexedDB, Playwright
