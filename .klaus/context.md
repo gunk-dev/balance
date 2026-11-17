@@ -8,7 +8,7 @@ Balance is a personal health and wellness tracking PWA. The user is probed throu
 - **Client:** React 18 + Vite 5 (`client/package.json`), Tailwind CSS v4 via `@tailwindcss/vite`, `lucide-react` for icons, `idb` for IndexedDB, `vite-plugin-pwa` for service worker/manifest.
 - **Server:** Fastify 5 + `@fastify/static` (`server/package.json`), run with `tsx` in dev.
 - **Testing:** Playwright e2e (`@playwright/test`, `client/e2e/`, `client/playwright.config.ts`).
-- **Tooling:** ESLint + Prettier (root `package.json`), Nix flake dev shell (`flake.nix`), direnv (`.envrc`).
+- **Tooling:** ESLint + Prettier (root `package.json`), Nix flake dev shell and checks (`flake.nix`), direnv (`.envrc`).
 - **Workspaces:** npm workspaces with `client` and `server` (root `package.json`).
 
 ## Entry points
@@ -39,6 +39,7 @@ Prerequisites: Node 22 (or `nix develop` for the flake dev shell). Run from repo
 - E2E tests: `npm run test:e2e` (Playwright, defined in `client/package.json`).
 - Server preview after build: `npm start -w server` (runs `node dist/index.js`).
 - Nix: `nix develop` enters the dev shell; `nix build` builds the `balance` package; `nix build .#oci-image` builds a layered Docker image (`flake.nix`).
+- Offline checks (x86_64 Linux): `nix build .#checks.x86_64-linux.<name>` for `build`, `lint`, `e2e`, `nixfmt`, `zizmor` (`flake.nix`).
 
 ## Conventions
 - **TypeScript strict mode** everywhere; **named exports preferred** over default exports (`AGENTS.md`, see `App.tsx` exporting `function App`).
@@ -54,7 +55,8 @@ Prerequisites: Node 22 (or `nix develop` for the flake dev shell). Run from repo
 ## Gotchas
 - `client/vite.config.ts` sets `base: "/balance/"` only when `command === "build" && process.env.GITHUB_ACTIONS` — local builds and the server-served build use `/`.
 - `server/src/index.ts` resolves the client dist as `../../client/dist` relative to its own compiled location, so the server expects the client to be built first; `npm run build` does this in order.
-- `flake.nix` pins `npmDepsHash`; changing `package-lock.json` requires updating that hash for `nix build` to succeed.
+- `flake.nix` pins the hash of `npmDeps`; changing `package-lock.json` requires updating that hash for `nix build` to succeed.
+- The `e2e` check runs Playwright against browser builds pinned in `nix/playwright-browsers.nix`; bumping `@playwright/test` requires updating that file.
 - Staging and preview deploys are not done in this repo — workflows only emit `repository_dispatch` events to `gunk-dev/infra` (`.github/workflows/staging.yml`, `preview.yml`).
 - Preview workflow is fork-guarded: it only runs when `pull_request.head.repo.full_name == github.repository` (`.github/workflows/preview.yml`).
 

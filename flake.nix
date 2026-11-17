@@ -17,12 +17,21 @@
       system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
+        inherit (pkgs) lib;
+
+        version = "0.1.0";
+        src = ./.;
+
+        # Fetched once and shared by the package and every npm check.
+        npmDeps = pkgs.fetchNpmDeps {
+          name = "balance-${version}-npm-deps";
+          inherit src;
+          hash = "sha256-X0z0MHFjkFqA/g+hprfd9JojAn4rv+DQl3hGwJH3eoo=";
+        };
 
         balance = pkgs.buildNpmPackage {
           pname = "balance";
-          version = "0.1.0";
-          src = ./.;
-          npmDepsHash = "sha256-X0z0MHFjkFqA/g+hprfd9JojAn4rv+DQl3hGwJH3eoo=";
+          inherit version src npmDeps;
 
           buildPhase = ''
             runHook preBuild
@@ -41,8 +50,77 @@
             runHook postInstall
           '';
         };
+
+        # A check run in the installed npm workspace, on the Node version CI
+        # uses. Its output is empty unless installPhase keeps something.
+        npmCheck =
+          name: attrs:
+          pkgs.buildNpmPackage (
+            {
+              pname = "balance-${name}";
+              inherit version src npmDeps;
+              nodejs = pkgs.nodejs_22;
+              dontNpmInstall = true;
+              installPhase = "touch $out";
+            }
+            // attrs
+          );
+
+        playwrightBrowsers = pkgs.callPackage ./nix/playwright-browsers.nix {
+          lockedVersion =
+            (lib.importJSON ./package-lock.json).packages."node_modules/playwright-core".version;
+        };
       in
       {
+        # Every test CI runs on a pull request, runnable offline with
+        # `nix build .#checks.x86_64-linux.<name>`.
+        checks = lib.optionalAttrs (system == "x86_64-linux") {
+          build = balance;
+
+          lint = npmCheck "lint" {
+            buildPhase = "npm run lint";
+          };
+
+          e2e = npmCheck "e2e" {
+            CI = "1";
+            PLAYWRIGHT_BROWSERS_PATH = playwrightBrowsers;
+            FONTCONFIG_FILE = pkgs.makeFontsConf { fontDirectories = [ pkgs.dejavu_fonts ]; };
+            buildPhase = "npm run test:e2e";
+            # The screenshots the specs take, as CI uploads them.
+            installPhase = "cp -r client/test-results $out";
+          };
+
+          nixfmt =
+            pkgs.runCommand "balance-nixfmt"
+              {
+                nativeBuildInputs = [ pkgs.nixfmt ];
+                src = lib.fileset.toSource {
+                  root = ./.;
+                  fileset = lib.fileset.fileFilter (file: file.hasExt "nix") ./.;
+                };
+              }
+              ''
+                cd $src
+                find . -name "*.nix" -exec nixfmt --check {} +
+                touch $out
+              '';
+
+          zizmor =
+            pkgs.runCommand "balance-zizmor"
+              {
+                nativeBuildInputs = [ pkgs.zizmor ];
+                src = lib.fileset.toSource {
+                  root = ./.;
+                  fileset = ./.github;
+                };
+              }
+              ''
+                cd $src
+                zizmor . --no-online-audits
+                touch $out
+              '';
+        };
+
         packages = {
           default = balance;
 

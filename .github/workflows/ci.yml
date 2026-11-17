@@ -23,7 +23,7 @@ jobs:
             accept-flake-config = true
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
       - name: Check formatting
-        run: nix develop -c nixfmt --check .
+        run: nix build -L .#checks.x86_64-linux.nixfmt
       - name: Flake check
         run: nix flake check
 
